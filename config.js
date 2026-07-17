@@ -6,7 +6,7 @@ window.APP_CONFIG = {
 
   emailjs: {
     enabled: true,
-    publicKey: "COLOQUE_AQUI_A_PUBLIC_KEY",
+    publicKey: "DZvSwJYHfKTlYvasH",
     serviceId: "service_87s5784",
     templateId: "template_34q2y45"
   },
