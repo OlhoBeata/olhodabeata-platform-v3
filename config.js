@@ -17,8 +17,8 @@ window.APP_CONFIG = {
   },
 
   backend: {
-    workerUrl: ""
-  },
+  workerUrl: "https://weathered-bonus-4ffaolhodabeata-api-v3.luis-santos-286.workers.dev/downloads"
+},
 
   event: {
     code: "STARTUP-VOUCHER-INNOVATE",
