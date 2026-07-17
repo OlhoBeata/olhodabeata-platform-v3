@@ -1,7 +1,6 @@
 "use strict";
 
 const CONFIG = window.APP_CONFIG;
-
 const params = new URLSearchParams(window.location.search);
 const photoId = params.get("photo");
 
@@ -17,25 +16,13 @@ const downloadButton = document.getElementById("downloadButton");
 const statusMessage = document.getElementById("statusMessage");
 
 if (!photoId) {
-  shell.innerHTML = `
-    <header class="header">
-      <h1>Fotografia não encontrada</h1>
-      <p>O link utilizado não contém uma fotografia válida.</p>
-    </header>
-  `;
+  shell.innerHTML = `<header class="header"><h1>Fotografia não encontrada</h1><p>O link utilizado não contém uma fotografia válida.</p></header>`;
   throw new Error("Falta o parâmetro photo no endereço.");
 }
 
-const encodedPhotoId = photoId
-  .split("/")
-  .map(part => encodeURIComponent(part))
-  .join("/");
-
-const imageUrl =
-  `https://res.cloudinary.com/${CONFIG.cloudinary.cloudName}/image/upload/f_auto,q_auto/${encodedPhotoId}`;
-
-const downloadUrl =
-  `https://res.cloudinary.com/${CONFIG.cloudinary.cloudName}/image/upload/fl_attachment/${encodedPhotoId}`;
+const encodedPhotoId = photoId.split("/").map(part => encodeURIComponent(part)).join("/");
+const imageUrl = `https://res.cloudinary.com/${CONFIG.cloudinary.cloudName}/image/upload/f_auto,q_auto/${encodedPhotoId}`;
+const downloadUrl = `https://res.cloudinary.com/${CONFIG.cloudinary.cloudName}/image/upload/fl_attachment/${encodedPhotoId}`;
 
 photo.addEventListener("load", () => {
   loading.style.display = "none";
@@ -62,8 +49,6 @@ downloadConfirmation.addEventListener("change", () => {
 });
 
 async function registarDownload(email) {
-  if (!CONFIG.backend.workerUrl) return;
-
   const dados = {
     eventCode: CONFIG.event.code,
     eventName: CONFIG.event.name,
@@ -76,15 +61,15 @@ async function registarDownload(email) {
     userAgent: navigator.userAgent
   };
 
-  try {
-    await fetch(CONFIG.backend.workerUrl, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(dados)
-    });
-  } catch (error) {
-    console.error("Erro ao registar o download:", error);
-  }
+  const response = await fetch(CONFIG.backend.workerUrl, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(dados)
+  });
+
+  const result = await response.json().catch(() => ({}));
+  if (!response.ok) throw new Error(result.error || `Worker respondeu ${response.status}`);
+  return result;
 }
 
 async function descarregarFotografia() {
@@ -97,11 +82,9 @@ async function descarregarFotografia() {
 
   link.href = temporaryUrl;
   link.download = `fotografia-${photoId.split("/").pop()}.jpg`;
-
   document.body.appendChild(link);
   link.click();
   link.remove();
-
   setTimeout(() => URL.revokeObjectURL(temporaryUrl), 5000);
 }
 
@@ -117,7 +100,6 @@ function downloadAlternativo() {
 
 downloadButton.addEventListener("click", async () => {
   const email = customerEmail.value.trim().toLowerCase();
-
   emailError.textContent = "";
   statusMessage.textContent = "";
 
@@ -144,9 +126,19 @@ downloadButton.addEventListener("click", async () => {
   }
 
   statusMessage.textContent = "Download iniciado com sucesso.";
-  registarDownload(email);
+
+  let downloadId = "";
+  try {
+    const result = await registarDownload(email);
+    downloadId = result.downloadId || "";
+  } catch (error) {
+    console.error("O download foi feito, mas o registo falhou:", error);
+  }
 
   setTimeout(() => {
-    window.location.href = "success.html";
-  }, 1800);
+    const destination = downloadId
+      ? `success.html?downloadId=${encodeURIComponent(downloadId)}`
+      : "success.html";
+    window.location.href = destination;
+  }, 700);
 });
