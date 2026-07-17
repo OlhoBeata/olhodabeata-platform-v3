@@ -16,7 +16,15 @@ function validarEmail(email) {
 
 function inicializarEmailJS() {
   const cfg = CONFIG.emailjs;
-  if (!cfg.enabled || !cfg.publicKey || cfg.publicKey.includes("COLOQUE_AQUI")) return false;
+
+  if (
+    !cfg.enabled ||
+    !cfg.publicKey ||
+    cfg.publicKey.includes("COLOQUE_AQUI")
+  ) {
+    return false;
+  }
+
   emailjs.init({ publicKey: cfg.publicKey });
   return true;
 }
@@ -24,10 +32,7 @@ function inicializarEmailJS() {
 const emailjsReady = inicializarEmailJS();
 
 async function enviarEmail(email, downloadLink) {
-  if (!emailjsReady) {
-    console.warn("EmailJS não configurado. O link foi criado, mas o email não foi enviado.");
-    return false;
-  }
+  if (!emailjsReady) return false;
 
   await emailjs.send(
     CONFIG.emailjs.serviceId,
@@ -75,8 +80,7 @@ uploadButton.addEventListener("click", async () => {
     );
 
     if (!response.ok) {
-      const detail = await response.text();
-      throw new Error(`Cloudinary ${response.status}: ${detail}`);
+      throw new Error(`Cloudinary ${response.status}: ${await response.text()}`);
     }
 
     const data = await response.json();
@@ -91,10 +95,10 @@ uploadButton.addEventListener("click", async () => {
 
     uploadStatus.textContent = sent
       ? "Fotografia enviada e email entregue ao cliente."
-      : "Fotografia enviada. Falta configurar a Public Key do EmailJS para enviar o email.";
+      : "Fotografia enviada. Falta configurar a Public Key do EmailJS.";
   } catch (error) {
     console.error(error);
-    uploadStatus.textContent = "Não foi possível concluir o envio. Consulte a consola para mais detalhes.";
+    uploadStatus.textContent = "Não foi possível concluir o envio.";
   } finally {
     uploadButton.disabled = false;
     uploadButton.textContent = "Enviar fotografia";

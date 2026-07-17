@@ -1,0 +1,26 @@
+"use strict";
+
+const CONFIG = window.APP_CONFIG;
+const params = new URLSearchParams(window.location.search);
+const downloadId = params.get("downloadId");
+const instagramButton = document.getElementById("instagramButton");
+
+instagramButton.href = CONFIG.download.instagramUrl;
+
+instagramButton.addEventListener("click", () => {
+  if (!downloadId) return;
+
+  const workerBaseUrl =
+    CONFIG.backend.workerUrl.replace(/\/downloads\/?$/, "");
+
+  fetch(`${workerBaseUrl}/instagram-click`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({
+      downloadId: Number(downloadId)
+    }),
+    keepalive: true
+  }).catch(error => {
+    console.error("Não foi possível registar o clique no Instagram:", error);
+  });
+});
