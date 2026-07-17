@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="pt-PT">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Download concluído</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    .success-page {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      padding: 35px 20px;
+      background: #ffffff;
+    }
+    .success-card {
+      width: 100%;
+      max-width: 620px;
+      margin: 0 auto;
+      text-align: center;
+    }
+    .success-icon {
+      width: 60px;
+      height: 60px;
+      margin: 0 auto 27px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border: 2px solid #151515;
+      border-radius: 50%;
+      font-size: 28px;
+    }
+    .success-card h1 {
+      margin: 0 0 18px;
+      font-size: clamp(31px, 6vw, 44px);
+      line-height: 1.15;
+      letter-spacing: -1px;
+    }
+    .success-card p {
+      max-width: 510px;
+      margin: 0 auto 31px;
+      color: #5b5b5b;
+      font-size: 17px;
+      line-height: 1.65;
+    }
+    .instagram-button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 57px;
+      padding: 15px 32px;
+      border-radius: 5px;
+      background: #151515;
+      color: #ffffff;
+      font-size: 15px;
+      font-weight: 700;
+      letter-spacing: .7px;
+      text-decoration: none;
+      text-transform: uppercase;
+    }
+    .success-footer {
+      margin-top: 55px;
+      color: #7d7d7d;
+      font-size: 13px;
+    }
+  </style>
+</head>
+<body>
+  <main class="success-page">
+    <section class="success-card">
+      <div class="success-icon">✓</div>
+      <h1>Download iniciado com sucesso</h1>
+      <p>
+        Obrigado pela sua participação. Acompanhe o IAPMEI no Instagram
+        para conhecer mais iniciativas, programas e conteúdos do ecossistema empreendedor.
+      </p>
+      <a
+        id="instagramButton"
+        class="instagram-button"
+        href="https://www.instagram.com/by.iapmei/"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        Seguir no Instagram
+      </a>
+      <div class="success-footer">StartUP Voucher Innovate · IAPMEI</div>
+    </section>
+  </main>
+
+  <script src="config.js"></script>
+  <script>
+    document.getElementById("instagramButton").href =
+      window.APP_CONFIG.download.instagramUrl;
+  </script>
+</body>
+</html>

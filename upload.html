@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="pt-PT">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Enviar fotografia | Olho da Beata</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <main class="page">
+    <section class="shell">
+      <header class="header">
+        <div class="brand">
+          <span class="brand-primary">OLHO DA BEATA</span>
+          <span class="brand-secondary">PLATAFORMA DE FOTOGRAFIAS</span>
+        </div>
+        <h1>Enviar fotografia</h1>
+        <p>Selecione a fotografia e indique o email do cliente.</p>
+      </header>
+
+      <section class="upload-card">
+        <label for="uploadPhoto">Fotografia</label>
+        <input id="uploadPhoto" type="file" accept="image/*">
+
+        <label for="recipientEmail">Email do cliente</label>
+        <input id="recipientEmail" type="email" placeholder="cliente@email.pt" autocomplete="email">
+
+        <button id="uploadButton" class="primary-button" type="button">
+          Enviar fotografia
+        </button>
+
+        <p id="uploadStatus" class="status-message"></p>
+
+        <div id="resultBox" class="result-box">
+          <strong>Link criado</strong>
+          <a id="resultLink" class="result-link" target="_blank" rel="noopener noreferrer"></a>
+          <button id="copyButton" class="secondary-button" type="button">Copiar link</button>
+        </div>
+      </section>
+    </section>
+  </main>
+
+  <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+  <script src="config.js"></script>
+  <script src="upload.js"></script>
+</body>
+</html>

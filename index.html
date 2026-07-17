@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="pt-PT">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>A sua fotografia está pronta | StartUP Voucher Innovate</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <main class="page">
+    <section class="shell">
+      <header class="header">
+        <div class="brand">
+          <span class="brand-primary">STARTUP VOUCHER</span>
+          <span class="brand-secondary">INNOVATE</span>
+        </div>
+
+        <h1>A sua fotografia está pronta!</h1>
+        <p>Obrigado pela sua participação no <strong>StartUP Voucher Innovate</strong>.</p>
+      </header>
+
+      <section class="photo-section" aria-live="polite">
+        <div id="loading" class="loading">
+          <div class="spinner" aria-hidden="true"></div>
+          <p>A preparar a sua fotografia...</p>
+        </div>
+        <img id="photo" class="photo" alt="Fotografia do evento">
+      </section>
+
+      <section class="form-section">
+        <label for="customerEmail">Confirme o seu email</label>
+        <input
+          type="email"
+          id="customerEmail"
+          placeholder="Introduza novamente o seu email"
+          autocomplete="email"
+          inputmode="email"
+        >
+        <p id="emailError" class="error-message"></p>
+      </section>
+
+      <section class="information-section">
+        <h2>Autorizações opcionais</h2>
+        <p>
+          As autorizações abaixo são opcionais. Pode retirar o seu consentimento
+          através do endereço <a href="mailto:info@iapmei.pt">info@iapmei.pt</a>.
+        </p>
+      </section>
+
+      <section class="consent-section">
+        <label class="consent-option">
+          <input type="checkbox" id="imageConsent">
+          <span>
+            <strong>Autorização de imagem e voz</strong>
+            <small>
+              Autorizo o IAPMEI a utilizar a minha imagem e/ou voz para fins de
+              divulgação institucional do programa StartUP Voucher Innovate.
+            </small>
+          </span>
+        </label>
+
+        <label class="consent-option">
+          <input type="checkbox" id="emailConsent">
+          <span>
+            <strong>Comunicações por email</strong>
+            <small>
+              Autorizo o IAPMEI a enviar comunicações relacionadas com a sua
+              atividade e com o programa StartUP Voucher Innovate.
+            </small>
+          </span>
+        </label>
+      </section>
+
+      <section class="required-section">
+        <label class="consent-option required-option">
+          <input type="checkbox" id="downloadConfirmation">
+          <span>
+            <strong>Confirmação de download</strong>
+            <small>
+              Confirmo que o email indicado está correto e que pretendo
+              descarregar a fotografia.
+            </small>
+          </span>
+        </label>
+      </section>
+
+      <section class="download-section">
+        <button id="downloadButton" type="button" disabled>
+          Descarregar fotografia
+        </button>
+        <p id="statusMessage" class="status-message"></p>
+      </section>
+
+      <footer class="footer">
+        <p>Serviço de fotografia assegurado por <strong>Olho da Beata</strong></p>
+        <p class="footer-secondary">StartUP Voucher Innovate · IAPMEI</p>
+      </footer>
+    </section>
+  </main>
+
+  <script src="config.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>
