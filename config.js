@@ -12,7 +12,7 @@ window.APP_CONFIG = {
   },
 
   download: {
-    baseUrl: "https://download.olhodabeata.com",
+   baseUrl: "https://olhodabeata-platform-v3.pages.dev",
     instagramUrl: "https://www.instagram.com/by.iapmei/"
   },
 
